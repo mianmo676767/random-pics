@@ -78,7 +78,7 @@ function next(){
     }).catch(e => showError('makuo 请求失败: ' + e));
     return;
   }
-  pic.src = srcs[v] + '&_t=' + rnd();
+  pic.src = srcs[v] + (srcs[v].includes('?') ? '&' : '?') + '_t=' + rnd();
 }
 
 // 失败自动重试（最多 3 次），换源时重置
@@ -88,7 +88,7 @@ pic.addEventListener('error', () => {
     retries++;
     spin.style.display = 'block';
     spin.textContent = '加载失败，自动重试 ' + retries + '/3…';
-    setTimeout(() => { pic.src = srcs[sel.value] + '&_t=' + rnd(); }, 900);
+    setTimeout(() => { pic.src = srcs[sel.value] + (srcs[sel.value].includes('?') ? '&' : '?') + '_t=' + rnd(); }, 900);
   } else {
     showError('这个源现在也抽风了，换个源试试');
   }
